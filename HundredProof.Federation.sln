@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityBroker", "IdentityBroker\IdentityBroker.csproj", "{7E6FD9C3-D4DA-4E48-9D32-E8BDE39FEF5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityEndpoint", "IdentityEndpoint\IdentityEndpoint.csproj", "{CDBF5092-E127-40A5-960B-6D0765BF2750}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E6FD9C3-D4DA-4E48-9D32-E8BDE39FEF5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E6FD9C3-D4DA-4E48-9D32-E8BDE39FEF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E6FD9C3-D4DA-4E48-9D32-E8BDE39FEF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E6FD9C3-D4DA-4E48-9D32-E8BDE39FEF5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDBF5092-E127-40A5-960B-6D0765BF2750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDBF5092-E127-40A5-960B-6D0765BF2750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDBF5092-E127-40A5-960B-6D0765BF2750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDBF5092-E127-40A5-960B-6D0765BF2750}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
