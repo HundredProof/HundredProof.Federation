@@ -7,6 +7,7 @@ using IdentityEndpoint.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -73,6 +74,11 @@ namespace IdentityEndpoint
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+                options.HttpsPort = 443;
+            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -84,7 +90,7 @@ namespace IdentityEndpoint
             }
 
             app.UseStaticFiles();
-
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();

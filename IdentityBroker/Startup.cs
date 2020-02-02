@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -77,7 +78,8 @@ namespace IdentityBroker
             builder.AddDeveloperSigningCredential();
 
             services.AddAuthentication()
-                .AddOpenIdConnect(options =>{
+                .AddOpenIdConnect(options =>
+                {
                     options.Authority = "https://localhost:7001";
                     options.ClientId = "IDBROKER";
                     options.ClientSecret = "IDBROKER";
@@ -86,6 +88,11 @@ namespace IdentityBroker
                     options.ResponseType = OpenIdConnectResponseType.Code;
                     options.GetClaimsFromUserInfoEndpoint = true;
                 });
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+                options.HttpsPort = 443;
+            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -97,7 +104,7 @@ namespace IdentityBroker
             }
 
             app.UseStaticFiles();
-
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
