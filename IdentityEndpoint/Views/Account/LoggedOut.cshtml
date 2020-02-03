@@ -1,4 +1,4 @@
-﻿@model LoggedOutViewModel
+﻿@model HundredProof.Federation.Domain.Account.LoggedOutViewModel
 
 @{ 
     // set this so the layout rendering sees an anonymous user
@@ -25,6 +25,7 @@
     }
 </div>
 
+@* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts
 {
     @if (Model.AutomaticRedirectAfterSignOut)

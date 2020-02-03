@@ -5,9 +5,9 @@
 using System;
 using System.Linq;
 using System.Security.Claims;
+using HundredProof.Federation.Domain.Account;
+using HundredProof.Federation.Domain.EF;
 using IdentityModel;
-using IdentityEndpoint.Data;
-using IdentityEndpoint.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

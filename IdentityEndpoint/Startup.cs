@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using IdentityEndpoint.Data;
-using IdentityEndpoint.Models;
+using HundredProof.Federation.Domain.Account;
+using HundredProof.Federation.Domain.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;

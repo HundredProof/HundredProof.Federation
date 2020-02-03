@@ -24,17 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data" />
-    <Folder Include="Models" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HundredProof.Federation.Domain\HundredProof.Federation.Domain.csproj" />
+    <ProjectReference Include="..\IdentityEndpoint\IdentityEndpoint.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Device\Success.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Device\UserCodeCapture.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Device\UserCodeConfirmation.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Diagnostics\Index.cshtml" />
   </ItemGroup>
 </Project>

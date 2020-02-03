@@ -1,12 +1,10 @@
 ﻿using System.Data;
 using Dapper;
-using IdentityEndpoint.DataModels;
-using IdentityEndpoint.Models;
-using Microsoft.AspNetCore.Mvc;
+using HundredProof.Federation.Domain.Account;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace Identityendpoing.DataModels
+namespace IdentityEndpoint.DataModels
 {
     public class SqlLoginHandler
     {
