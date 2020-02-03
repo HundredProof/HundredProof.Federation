@@ -3,7 +3,7 @@
 
 
 
-namespace IdentityServer4.Quickstart.UI
+namespace HundredProof.Federation.Domain.Account
 {
     public class RedirectViewModel
     {

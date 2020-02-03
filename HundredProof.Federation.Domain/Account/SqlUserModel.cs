@@ -1,4 +1,4 @@
-﻿namespace IdentityEndpoint.DataModels
+﻿namespace HundredProof.Federation.Domain.Account
 {
     public class SqlUserModel
     {

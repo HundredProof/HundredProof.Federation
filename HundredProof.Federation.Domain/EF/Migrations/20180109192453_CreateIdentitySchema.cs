@@ -2,7 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace IdentityBroker.Data.Migrations
+namespace HundredProof.Federation.Domain.EF.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

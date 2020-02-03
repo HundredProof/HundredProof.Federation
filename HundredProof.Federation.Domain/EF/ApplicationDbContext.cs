@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using IdentityBroker.Models;
+using HundredProof.Federation.Domain.Account;
 
-namespace IdentityBroker.Data
+namespace HundredProof.Federation.Domain.EF
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
