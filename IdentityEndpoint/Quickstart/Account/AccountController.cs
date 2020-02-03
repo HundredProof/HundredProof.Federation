@@ -19,7 +19,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Identityendpoing.DataModels;
-using IdentityEndpoint.DataModels;
+using HundredProof.Federation.Domain.Account;
 using Microsoft.Extensions.Configuration;
 
 namespace IdentityServer4.Quickstart.UI
@@ -138,6 +138,7 @@ namespace IdentityServer4.Quickstart.UI
                                  new Claim(JwtClaimTypes.ClientId, context?.ClientId),
                                  new Claim(JwtClaimTypes.Id, appUser.Id),
                                  new Claim(JwtClaimTypes.Email, appUser.Email)
+                                 //TODO: pass in as array (look for Id, clientId and Email and throw)
                              });
                              await _events.RaiseAsync(new UserLoginSuccessEvent(appUser.UserName, subjectId: appUser.Id,
                                 appUser.UserName, clientId: context?.ClientId));

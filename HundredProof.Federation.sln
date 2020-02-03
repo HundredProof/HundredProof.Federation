@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityBroker", "IdentityB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityEndpoint", "IdentityEndpoint\IdentityEndpoint.csproj", "{CDBF5092-E127-40A5-960B-6D0765BF2750}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HundredProof.Federation.Domain", "HundredProof.Federation.Domain\HundredProof.Federation.Domain.csproj", "{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{CDBF5092-E127-40A5-960B-6D0765BF2750}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDBF5092-E127-40A5-960B-6D0765BF2750}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDBF5092-E127-40A5-960B-6D0765BF2750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

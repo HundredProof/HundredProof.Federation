@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using HundredProof.Federation.Domain.Home;
 
 namespace IdentityServer4.Quickstart.UI
 {
@@ -48,9 +49,20 @@ namespace IdentityServer4.Quickstart.UI
 
             // retrieve error details from identityserver
             var message = await _interaction.GetErrorContextAsync(errorId);
+            
             if (message != null)
             {
-                vm.Error = message;
+                vm.Error = new ErrorMessage
+                {
+                    DisplayMode = message.DisplayMode,
+                    Error = message.Error,
+                    ClientId = message.ClientId,
+                    ErrorDescription = message.ErrorDescription,
+                    RedirectUri = message.RedirectUri,
+                    ResponseMode = message.ResponseMode,
+                    UiLocales = message.UiLocales,
+                    RequestId = message.RequestId
+                };
 
                 if (!_environment.IsDevelopment())
                 {

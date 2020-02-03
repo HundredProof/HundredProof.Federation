@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-
+using HundredProof.Federation.Domain.Consent;
+using HundredProof.Federation.Domain.Account;
 namespace IdentityServer4.Quickstart.UI
 {
     /// <summary>
