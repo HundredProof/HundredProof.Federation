@@ -62,7 +62,7 @@ namespace IdentityBroker
             services.AddAuthentication()
                 .AddOpenIdConnect(options =>
                 {
-                    options.Authority = "https://localhost:7001";
+                    options.Authority = "https://endpoint.example-1.getthinktank.com";
                     options.ClientId = "IDBROKER";
                     options.ClientSecret = "IDBROKER";
                     options.AuthenticationMethod = OpenIdConnectRedirectBehavior.RedirectGet;
