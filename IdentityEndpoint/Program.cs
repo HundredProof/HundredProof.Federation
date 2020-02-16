@@ -72,6 +72,7 @@ namespace IdentityEndpoint
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseSerilog();
                 });

@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HundredProof.Federation.Domain\HundredProof.Federation.Domain.csproj" />
-    <ProjectReference Include="..\IdentityEndpoint\IdentityEndpoint.csproj" />
   </ItemGroup>
 
   <ItemGroup>

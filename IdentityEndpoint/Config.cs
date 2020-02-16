@@ -35,7 +35,7 @@ namespace IdentityEndpoint
                     ClientUri = "https://broker.example-1.getthinktank.com",
                     ClientClaimsPrefix = "idbroker_",
                     Enabled = true,
-                    RedirectUris = {"https://https://broker.example-1.getthinktank.com", "https://broker.example-1.getthinktank.com/signin-oidc"},
+                    RedirectUris = {"https://broker.example-1.getthinktank.com", "https://broker.example-1.getthinktank.com/signin-oidc"},
                     AllowedScopes = {"openid", "profile", "sub"},
                     AllowPlainTextPkce = false,
                     AlwaysSendClientClaims = true,

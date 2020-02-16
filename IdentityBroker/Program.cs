@@ -69,6 +69,7 @@ namespace IdentityBroker
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("https://broker.example-1.getthinktank.com:443/");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseSerilog();
                 });
