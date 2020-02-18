@@ -69,6 +69,13 @@ namespace IdentityBroker
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureKestrel(serverOptions =>
+                    {
+                        serverOptions.ConfigureEndpointDefaults(listenOptions =>
+                        {
+                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My, "broker.example-1.getthinktank.com");
+                        });
+                    });
                     webBuilder.UseUrls("https://broker.example-1.getthinktank.com:443/");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseSerilog();

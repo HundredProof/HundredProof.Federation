@@ -72,7 +72,14 @@ namespace IdentityEndpoint
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("");
+                    webBuilder.ConfigureKestrel(serverOptions =>
+                    {
+                        serverOptions.ConfigureEndpointDefaults(listenOptions =>
+                        {
+                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My, "endpoint.example-2.getthinktank.com");
+                        });
+                    });
+                    webBuilder.UseUrls("https://endpoint.example-2.getthinktank.com:443/");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseSerilog();
                 });
