@@ -1,0 +1,5 @@
+{
+  "HttpsSettings": {
+    "CertificateSubject": "broker.example-1.getthinktank.com"
+  }
+}

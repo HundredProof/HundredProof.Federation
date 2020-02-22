@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using HundredProof.Federation.DataModel.UserDatabase;
 using HundredProof.Federation.Domain;
 using IdentityModel;
 using IdentityServer4.Events;

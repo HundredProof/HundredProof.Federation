@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using HundredProof.Federation.DataModel.UserDatabase;
 using HundredProof.Federation.Domain;
 
 namespace IdentityBroker.Controllers.Account

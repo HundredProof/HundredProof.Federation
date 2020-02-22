@@ -1,10 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityBroker", "IdentityBroker\IdentityBroker.csproj", "{7E6FD9C3-D4DA-4E48-9D32-E8BDE39FEF5E}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityBroker", "IdentityBroker\IdentityBroker.csproj", "{7E6FD9C3-D4DA-4E48-9D32-E8BDE39FEF5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityEndpoint", "IdentityEndpoint\IdentityEndpoint.csproj", "{CDBF5092-E127-40A5-960B-6D0765BF2750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityEndpoint", "IdentityEndpoint\IdentityEndpoint.csproj", "{CDBF5092-E127-40A5-960B-6D0765BF2750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HundredProof.Federation.Domain", "HundredProof.Federation.Domain\HundredProof.Federation.Domain.csproj", "{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HundredProof.Federation.Domain", "HundredProof.Federation.Domain\HundredProof.Federation.Domain.csproj", "{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HundredProof.Federation.DataModel", "HundredProof.Federation.DataModel\HundredProof.Federation.DataModel.csproj", "{2AE26167-FD10-494F-B050-EA6B797B70DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +29,15 @@ Global
 		{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AE26167-FD10-494F-B050-EA6B797B70DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AE26167-FD10-494F-B050-EA6B797B70DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AE26167-FD10-494F-B050-EA6B797B70DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AE26167-FD10-494F-B050-EA6B797B70DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {66702A2B-FDBA-498E-9F44-294F7077C800}
 	EndGlobalSection
 EndGlobal

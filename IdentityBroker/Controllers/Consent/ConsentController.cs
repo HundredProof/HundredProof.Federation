@@ -1,6 +1,3 @@
-
-
-
 using IdentityServer4.Events;
 using IdentityServer4.Models;
 using IdentityServer4.Services;

@@ -9,14 +9,13 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
+using System.IO;
 using System.Linq;
 
-namespace IdentityEndpoint
-{
-    public class Program
-    {
-        public static int Main(string[] args)
-        {
+namespace IdentityEndpoint {
+    public class Program {
+
+        public static int Main(string[] args) {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -30,24 +29,25 @@ namespace IdentityEndpoint
                 //    rollOnFileSizeLimit: true,
                 //    shared: true,
                 //    flushToDiskInterval: TimeSpan.FromSeconds(1))
-                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Literate)
+                .WriteTo.Console(
+                    outputTemplate:
+                    "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                    theme: AnsiConsoleTheme.Literate)
                 .CreateLogger();
-
-            try
-            {
+                
+            try {
                 var seed = args.Contains("/seed");
-                if (seed)
-                {
-                    args = args.Except(new[] { "/seed" }).ToArray();
+                if (seed) {
+                    args = args.Except(new[] {"/seed"}).ToArray();
                 }
 
                 var host = CreateHostBuilder(args).Build();
 
-                if (seed)
-                {
+                if (seed) {
                     Log.Information("Seeding database...");
                     var config = host.Services.GetRequiredService<IConfiguration>();
                     var connectionString = config.GetConnectionString("DefaultConnection");
+                    var httpsConfig = config.GetSection("HttpsSettings");
                     SeedData.EnsureSeedData(connectionString);
                     Log.Information("Done seeding database.");
                     return 0;
@@ -57,26 +57,27 @@ namespace IdentityEndpoint
                 host.Run();
                 return 0;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Log.Fatal(ex, "Host terminated unexpectedly.");
                 return 1;
             }
-            finally
-            {
+            finally {
                 Log.CloseAndFlush();
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureKestrel(serverOptions =>
-                    {
-                        serverOptions.ConfigureEndpointDefaults(listenOptions =>
-                        {
-                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My, "endpoint.example-2.getthinktank.com");
+                .ConfigureWebHostDefaults(webBuilder => {
+                    webBuilder.ConfigureKestrel(serverOptions => {
+                        serverOptions.ConfigureEndpointDefaults(listenOptions => {
+                            var config = new ConfigurationBuilder()
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("https.json", optional: true)
+                                .AddCommandLine(args)
+                                .Build().GetSection("HttpsSettings");
+                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My,
+                                config.GetValue<string>("CertificateSubject"));
                         });
                     });
                     webBuilder.UseUrls("https://endpoint.example-2.getthinktank.com:443/");

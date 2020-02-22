@@ -6,14 +6,12 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
+using System.IO;
 using System.Linq;
 
-namespace IdentityBroker
-{
-    public class Program
-    {
-        public static int Main(string[] args)
-        {
+namespace IdentityBroker {
+    public class Program {
+        public static int Main(string[] args) {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -27,21 +25,21 @@ namespace IdentityBroker
                 //    rollOnFileSizeLimit: true,
                 //    shared: true,
                 //    flushToDiskInterval: TimeSpan.FromSeconds(1))
-                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Literate)
+                .WriteTo.Console(
+                    outputTemplate:
+                    "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                    theme: AnsiConsoleTheme.Literate)
                 .CreateLogger();
 
-            try
-            {
+            try {
                 var seed = args.Contains("/seed");
-                if (seed)
-                {
-                    args = args.Except(new[] { "/seed" }).ToArray();
+                if (seed) {
+                    args = args.Except(new[] {"/seed"}).ToArray();
                 }
 
                 var host = CreateHostBuilder(args).Build();
 
-                if (seed)
-                {
+                if (seed) {
                     Log.Information("Seeding database...");
                     var config = host.Services.GetRequiredService<IConfiguration>();
                     var connectionString = config.GetConnectionString("DefaultConnection");
@@ -54,26 +52,27 @@ namespace IdentityBroker
                 host.Run();
                 return 0;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Log.Fatal(ex, "Host terminated unexpectedly.");
                 return 1;
             }
-            finally
-            {
+            finally {
                 Log.CloseAndFlush();
             }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureKestrel(serverOptions =>
-                    {
-                        serverOptions.ConfigureEndpointDefaults(listenOptions =>
-                        {
-                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My, "broker.example-1.getthinktank.com");
+                .ConfigureWebHostDefaults(webBuilder => {
+                    webBuilder.ConfigureKestrel(serverOptions => {
+                        serverOptions.ConfigureEndpointDefaults(listenOptions => {
+                            var config = new ConfigurationBuilder()
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("https.json", optional: true)
+                                .AddCommandLine(args)
+                                .Build().GetSection("HttpsSettings");
+                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My,
+                                config.GetValue<string>("CertificateSubject"));
                         });
                     });
                     webBuilder.UseUrls("https://broker.example-1.getthinktank.com:443/");

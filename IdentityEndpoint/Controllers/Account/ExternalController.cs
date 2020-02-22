@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HundredProof.Federation.DataModel.UserDatabase;
 using HundredProof.Federation.Domain;
 using HundredProof.Federation.Domain.Account;
 using IdentityModel;

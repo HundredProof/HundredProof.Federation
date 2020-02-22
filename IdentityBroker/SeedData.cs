@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 using HundredProof.Federation.Domain.Account;
-using HundredProof.Federation.Domain.EF;
+using HundredProof.Federation.DataModel.UserDatabase;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
