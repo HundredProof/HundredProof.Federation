@@ -40,7 +40,8 @@ namespace IdentityEndpoint {
                 if (seed) {
                     args = args.Except(new[] {"/seed"}).ToArray();
                 }
-
+                Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT",
+                    args.Contains("/debug") ? "Debug" : "Production");
                 var host = CreateHostBuilder(args).Build();
 
                 if (seed) {
@@ -76,8 +77,10 @@ namespace IdentityEndpoint {
                                 .AddJsonFile("https.json", optional: true)
                                 .AddCommandLine(args)
                                 .Build().GetSection("HttpsSettings");
-                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My,
-                                config.GetValue<string>("CertificateSubject"));
+                            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
+                                listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My,
+                                    config.GetValue<string>("CertificateSubject"));
+                            }
                         });
                     });
                     webBuilder.UseUrls("https://endpoint.example-2.getthinktank.com:443/");

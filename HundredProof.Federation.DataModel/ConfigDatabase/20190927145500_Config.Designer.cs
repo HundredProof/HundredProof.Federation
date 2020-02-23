@@ -14,7 +14,7 @@ namespace HundredProof.Federation.DataModel.ConfigDatabase
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0");
+                .HasAnnotation("ConfigProductVersion", "3.0.0");
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResource", b =>
                 {

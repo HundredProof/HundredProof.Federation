@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="GrantDatabase\" />
-    <Folder Include="ConfigDatabase\" />
+    <None Remove="PersistanceMigrations.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="PersistanceMigrations.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

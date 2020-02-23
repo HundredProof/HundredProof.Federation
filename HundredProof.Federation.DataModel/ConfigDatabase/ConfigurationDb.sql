@@ -1,10 +1,5 @@
-﻿CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
-    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
-    "ProductVersion" TEXT NOT NULL
-);
-
-CREATE TABLE "ApiResources" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiResources" PRIMARY KEY AUTOINCREMENT,
+﻿CREATE TABLE "ApiResources" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiResources" PRIMARY KEY IDENTITY(1,1),
     "Enabled" BIT NOT NULL,
     "Name" NVARCHAR(200) NOT NULL,
     "DisplayName" NVARCHAR(200) NULL,
@@ -12,11 +7,11 @@ CREATE TABLE "ApiResources" (
     "Created" DATETIME NOT NULL,
     "Updated" DATETIME NULL,
     "LastAccessed" DATETIME NULL,
-    "NonEditable" BOOL NOT NULL
+    "NonEditable" BIT NOT NULL
 );
 
 CREATE TABLE "Clients" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_Clients" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Clients" PRIMARY KEY IDENTITY(1,1),
     "Enabled" BIT NOT NULL,
     "ClientId" NVARCHAR(200) NOT NULL,
     "ProtocolType" NVARCHAR(200) NOT NULL,
@@ -61,7 +56,7 @@ CREATE TABLE "Clients" (
 );
 
 CREATE TABLE "IdentityResources" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_IdentityResources" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_IdentityResources" PRIMARY KEY IDENTITY(1,1),
     "Enabled" BIT NOT NULL,
     "Name" NVARCHAR(200) NOT NULL,
     "DisplayName" NVARCHAR(200) NULL,
@@ -75,14 +70,14 @@ CREATE TABLE "IdentityResources" (
 );
 
 CREATE TABLE "ApiClaims" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiClaims" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiClaims" PRIMARY KEY IDENTITY(1,1),
     "Type" NVARCHAR(200) NOT NULL,
     "ApiResourceId" INTEGER NOT NULL,
     CONSTRAINT "FK_ApiClaims_ApiResources_ApiResourceId" FOREIGN KEY ("ApiResourceId") REFERENCES "ApiResources" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "ApiProperties" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiProperties" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiProperties" PRIMARY KEY IDENTITY(1,1),
     "Key" NVARCHAR(250) NOT NULL,
     "Value" NVARCHAR(2000) NOT NULL,
     "ApiResourceId" INTEGER NOT NULL,
@@ -90,7 +85,7 @@ CREATE TABLE "ApiProperties" (
 );
 
 CREATE TABLE "ApiScopes" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiScopes" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiScopes" PRIMARY KEY IDENTITY(1,1),
     "Name" NVARCHAR(200) NOT NULL,
     "DisplayName" NVARCHAR(200) NULL,
     "Description" NVARCHAR(1000) NULL,
@@ -102,7 +97,7 @@ CREATE TABLE "ApiScopes" (
 );
 
 CREATE TABLE "ApiSecrets" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiSecrets" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiSecrets" PRIMARY KEY IDENTITY(1,1),
     "Description" NVARCHAR(1000) NULL,
     "Value" NVARCHAR(4000) NOT NULL,
     "Expiration" NVARCHAR(250) NULL,
@@ -113,7 +108,7 @@ CREATE TABLE "ApiSecrets" (
 );
 
 CREATE TABLE "ClientClaims" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientClaims" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientClaims" PRIMARY KEY IDENTITY(1,1),
     "Type" NVARCHAR(250) NOT NULL,
     "Value" NVARCHAR(250) NOT NULL,
     "ClientId" INTEGER NOT NULL,
@@ -121,35 +116,35 @@ CREATE TABLE "ClientClaims" (
 );
 
 CREATE TABLE "ClientCorsOrigins" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientCorsOrigins" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientCorsOrigins" PRIMARY KEY IDENTITY(1,1),
     "Origin" NVARCHAR(150) NOT NULL,
     "ClientId" INTEGER NOT NULL,
     CONSTRAINT "FK_ClientCorsOrigins_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "ClientGrantTypes" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientGrantTypes" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientGrantTypes" PRIMARY KEY IDENTITY(1,1),
     "GrantType" NVARCHAR(250) NOT NULL,
     "ClientId" INTEGER NOT NULL,
     CONSTRAINT "FK_ClientGrantTypes_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "ClientIdPRestrictions" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientIdPRestrictions" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientIdPRestrictions" PRIMARY KEY IDENTITY(1,1),
     "Provider" NVARCHAR(200) NOT NULL,
     "ClientId" INTEGER NOT NULL,
     CONSTRAINT "FK_ClientIdPRestrictions_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "ClientPostLogoutRedirectUris" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientPostLogoutRedirectUris" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientPostLogoutRedirectUris" PRIMARY KEY IDENTITY(1,1),
     "PostLogoutRedirectUri" NVARCHAR(2000) NOT NULL,
     "ClientId" INTEGER NOT NULL,
     CONSTRAINT "FK_ClientPostLogoutRedirectUris_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "ClientProperties" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientProperties" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientProperties" PRIMARY KEY IDENTITY(1,1),
     "Key" NVARCHAR(250) NOT NULL,
     "Value" NVARCHAR(2000) NOT NULL,
     "ClientId" INTEGER NOT NULL,
@@ -157,21 +152,21 @@ CREATE TABLE "ClientProperties" (
 );
 
 CREATE TABLE "ClientRedirectUris" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientRedirectUris" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientRedirectUris" PRIMARY KEY IDENTITY(1,1),
     "RedirectUri" NVARCHAR(2000) NOT NULL,
     "ClientId" INTEGER NOT NULL,
     CONSTRAINT "FK_ClientRedirectUris_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "ClientScopes" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientScopes" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientScopes" PRIMARY KEY IDENTITY(1,1),
     "Scope" NVARCHAR(200) NOT NULL,
     "ClientId" INTEGER NOT NULL,
     CONSTRAINT "FK_ClientScopes_Clients_ClientId" FOREIGN KEY ("ClientId") REFERENCES "Clients" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "ClientSecrets" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientSecrets" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ClientSecrets" PRIMARY KEY IDENTITY(1,1),
     "Description" NVARCHAR(2000) NULL,
     "Value" NVARCHAR(4000) NOT NULL,
     "Expiration" DATETIME NULL,
@@ -182,14 +177,14 @@ CREATE TABLE "ClientSecrets" (
 );
 
 CREATE TABLE "IdentityClaims" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_IdentityClaims" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_IdentityClaims" PRIMARY KEY IDENTITY(1,1),
     "Type" NVARCHAR(200) NOT NULL,
     "IdentityResourceId" INTEGER NOT NULL,
     CONSTRAINT "FK_IdentityClaims_IdentityResources_IdentityResourceId" FOREIGN KEY ("IdentityResourceId") REFERENCES "IdentityResources" ("Id") ON DELETE CASCADE
 );
 
 CREATE TABLE "IdentityProperties" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_IdentityProperties" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_IdentityProperties" PRIMARY KEY IDENTITY(1,1),
     "Key" NVARCHAR(250) NOT NULL,
     "Value" NVARCHAR(2000) NOT NULL,
     "IdentityResourceId" INTEGER NOT NULL,
@@ -197,7 +192,7 @@ CREATE TABLE "IdentityProperties" (
 );
 
 CREATE TABLE "ApiScopeClaims" (
-    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiScopeClaims" PRIMARY KEY AUTOINCREMENT,
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ApiScopeClaims" PRIMARY KEY IDENTITY(1,1),
     "Type" NVARCHAR(200) NOT NULL,
     "ApiScopeId" INTEGER NOT NULL,
     CONSTRAINT "FK_ApiScopeClaims_ApiScopes_ApiScopeId" FOREIGN KEY ("ApiScopeId") REFERENCES "ApiScopes" ("Id") ON DELETE CASCADE

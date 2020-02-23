@@ -8,6 +8,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace IdentityBroker {
     public class Program {
@@ -18,13 +19,6 @@ namespace IdentityBroker {
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                // uncomment to write to Azure diagnostics stream
-                //.WriteTo.File(
-                //    @"D:\home\LogFiles\Application\identityserver.txt",
-                //    fileSizeLimitBytes: 1_000_000,
-                //    rollOnFileSizeLimit: true,
-                //    shared: true,
-                //    flushToDiskInterval: TimeSpan.FromSeconds(1))
                 .WriteTo.Console(
                     outputTemplate:
                     "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
@@ -37,6 +31,8 @@ namespace IdentityBroker {
                     args = args.Except(new[] {"/seed"}).ToArray();
                 }
 
+                Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT",
+                    args.Contains("/debug") ? "Debug" : "Production");
                 var host = CreateHostBuilder(args).Build();
 
                 if (seed) {
@@ -71,8 +67,10 @@ namespace IdentityBroker {
                                 .AddJsonFile("https.json", optional: true)
                                 .AddCommandLine(args)
                                 .Build().GetSection("HttpsSettings");
-                            listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My,
-                                config.GetValue<string>("CertificateSubject"));
+                            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
+                                listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My,
+                                    config.GetValue<string>("CertificateSubject"));
+                            }
                         });
                     });
                     webBuilder.UseUrls("https://broker.example-1.getthinktank.com:443/");
