@@ -1,10 +1,10 @@
 ﻿using System;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using IdentityServer4.EntityFramework.DbContexts;
 
-namespace HundredProof.Federation.DataModel.ConfigDatabase
+namespace HundredProof.Federation.StorageModel.ConfigDatabase
 {
     [DbContext(typeof(ConfigurationDbContext))]
     [Migration("20190927145500_Config")]

@@ -31,8 +31,8 @@ namespace IdentityEndpoint {
             });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options =>
-                connectionString);
+            services.AddDbContext<ApplicationDbContext>(options => 
+                options.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

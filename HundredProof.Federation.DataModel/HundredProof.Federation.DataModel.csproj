@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>HundredProof.Federation.StorageModel</AssemblyName>
+    <RootNamespace>HundredProof.Federation.StorageModel</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace HundredProof.Federation.DataModel.ConfigDatabase
+namespace HundredProof.Federation.StorageModel.ConfigDatabase
 {
     public partial class Config : Migration
     {
