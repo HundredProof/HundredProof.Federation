@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace HundredProof.Federation.Domain.Account
-{
-    public class AccountOptions
-    {
+namespace HundredProof.Federation.Domain.Account {
+    public class AccountOptions {
         public static bool AllowLocalLogin = true;
         public static bool AllowRememberLogin = true;
         public static TimeSpan RememberMeLoginDuration = TimeSpan.FromDays(30);

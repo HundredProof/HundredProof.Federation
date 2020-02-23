@@ -5,806 +5,768 @@ using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace HundredProof.Federation.DataModel.ConfigDatabase
-{
+namespace HundredProof.Federation.DataModel.ConfigDatabase {
     [DbContext(typeof(ConfigurationDbContext))]
-    partial class ConfigurationDbContextModelSnapshot : ModelSnapshot
-    {
-        protected override void BuildModel(ModelBuilder modelBuilder)
-        {
+    internal class ConfigurationDbContextModelSnapshot : ModelSnapshot {
+        protected override void BuildModel(ModelBuilder modelBuilder) {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResource", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResource", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(1000);
+                b.Property<string>("Description")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(1000);
 
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("DisplayName")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("Enabled")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("LastAccessed")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime?>("LastAccessed")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<bool>("NonEditable")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("NonEditable")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime?>("Updated")
+                    .HasColumnType("DATETIME");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                b.HasIndex("Name")
+                    .IsUnique();
 
-                    b.ToTable("ApiResources");
-                });
+                b.ToTable("ApiResources");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceClaim", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ApiResourceId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ApiResourceId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ApiResourceId");
+                b.HasIndex("ApiResourceId");
 
-                    b.ToTable("ApiClaims");
-                });
+                b.ToTable("ApiClaims");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceProperty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceProperty", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ApiResourceId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ApiResourceId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("Key")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("Value")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ApiResourceId");
+                b.HasIndex("ApiResourceId");
 
-                    b.ToTable("ApiProperties");
-                });
+                b.ToTable("ApiProperties");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScope", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScope", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ApiResourceId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ApiResourceId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(1000);
+                b.Property<string>("Description")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(1000);
 
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("DisplayName")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<bool>("Emphasize")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("Emphasize")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<bool>("Required")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("Required")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("ShowInDiscoveryDocument")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("ShowInDiscoveryDocument")
+                    .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ApiResourceId");
+                b.HasIndex("ApiResourceId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                b.HasIndex("Name")
+                    .IsUnique();
 
-                    b.ToTable("ApiScopes");
-                });
+                b.ToTable("ApiScopes");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScopeClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScopeClaim", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ApiScopeId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ApiScopeId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ApiScopeId");
+                b.HasIndex("ApiScopeId");
 
-                    b.ToTable("ApiScopeClaims");
-                });
+                b.ToTable("ApiScopeClaims");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiSecret", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiSecret", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ApiResourceId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ApiResourceId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(1000);
+                b.Property<string>("Description")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(1000);
 
-                    b.Property<DateTime?>("Expiration")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime?>("Expiration")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(4000);
+                b.Property<string>("Value")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(4000);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ApiResourceId");
+                b.HasIndex("ApiResourceId");
 
-                    b.ToTable("ApiSecrets");
-                });
+                b.ToTable("ApiSecrets");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.Client", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("AbsoluteRefreshTokenLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("AbsoluteRefreshTokenLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("AccessTokenLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("AccessTokenLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("AccessTokenType")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("AccessTokenType")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AllowAccessTokensViaBrowser")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("AllowAccessTokensViaBrowser")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AllowOfflineAccess")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("AllowOfflineAccess")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AllowPlainTextPkce")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("AllowPlainTextPkce")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AllowRememberConsent")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("AllowRememberConsent")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AlwaysIncludeUserClaimsInIdToken")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("AlwaysIncludeUserClaimsInIdToken")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("AlwaysSendClientClaims")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("AlwaysSendClientClaims")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("AuthorizationCodeLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("AuthorizationCodeLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("BackChannelLogoutSessionRequired")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("BackChannelLogoutSessionRequired")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("BackChannelLogoutUri")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("BackChannelLogoutUri")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.Property<string>("ClientClaimsPrefix")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("ClientClaimsPrefix")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("ClientId")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<string>("ClientName")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("ClientName")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<string>("ClientUri")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("ClientUri")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.Property<int?>("ConsentLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int?>("ConsentLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("DATETIME")
-                        .HasMaxLength(1000);
+                b.Property<string>("Description")
+                    .HasColumnType("DATETIME")
+                    .HasMaxLength(1000);
 
-                    b.Property<int>("DeviceCodeLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("DeviceCodeLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("EnableLocalLogin")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("EnableLocalLogin")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("Enabled")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("FrontChannelLogoutSessionRequired")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("FrontChannelLogoutSessionRequired")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("FrontChannelLogoutUri")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("FrontChannelLogoutUri")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.Property<int>("IdentityTokenLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("IdentityTokenLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("IncludeJwtId")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("IncludeJwtId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("LastAccessed")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime?>("LastAccessed")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("LogoUri")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("LogoUri")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.Property<bool>("NonEditable")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("NonEditable")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("PairWiseSubjectSalt")
-                        .HasColumnType("NCARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("PairWiseSubjectSalt")
+                    .HasColumnType("NCARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<string>("ProtocolType")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("ProtocolType")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<int>("RefreshTokenExpiration")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("RefreshTokenExpiration")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("RefreshTokenUsage")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("RefreshTokenUsage")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("RequireClientSecret")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("RequireClientSecret")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("RequireConsent")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("RequireConsent")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("RequirePkce")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("RequirePkce")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("SlidingRefreshTokenLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("SlidingRefreshTokenLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("UpdateAccessTokenClaimsOnRefresh")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("UpdateAccessTokenClaimsOnRefresh")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("TEXT");
+                b.Property<DateTime?>("Updated")
+                    .HasColumnType("TEXT");
 
-                    b.Property<string>("UserCodeType")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(100);
+                b.Property<string>("UserCodeType")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(100);
 
-                    b.Property<int?>("UserSsoLifetime")
-                        .HasColumnType("INTEGER");
+                b.Property<int?>("UserSsoLifetime")
+                    .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId")
-                        .IsUnique();
+                b.HasIndex("ClientId")
+                    .IsUnique();
 
-                    b.ToTable("Clients");
-                });
+                b.ToTable("Clients");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientClaim", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("Value")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientClaims");
-                });
+                b.ToTable("ClientClaims");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientCorsOrigin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientCorsOrigin", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Origin")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(150);
+                b.Property<string>("Origin")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(150);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientCorsOrigins");
-                });
+                b.ToTable("ClientCorsOrigins");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientGrantType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientGrantType", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("GrantType")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("GrantType")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientGrantTypes");
-                });
+                b.ToTable("ClientGrantTypes");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientIdPRestriction", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientIdPRestriction", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Provider")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Provider")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientIdPRestrictions");
-                });
+                b.ToTable("ClientIdPRestrictions");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientPostLogoutRedirectUri", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientPostLogoutRedirectUri", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("PostLogoutRedirectUri")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("PostLogoutRedirectUri")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientPostLogoutRedirectUris");
-                });
+                b.ToTable("ClientPostLogoutRedirectUris");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientProperty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientProperty", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("Key")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("Value")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientProperties");
-                });
+                b.ToTable("ClientProperties");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientRedirectUri", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientRedirectUri", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("RedirectUri")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("RedirectUri")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientRedirectUris");
-                });
+                b.ToTable("ClientRedirectUris");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientScope", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientScope", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Scope")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Scope")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientScopes");
-                });
+                b.ToTable("ClientScopes");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientSecret", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientSecret", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("ClientId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("Description")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.Property<DateTime?>("Expiration")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime?>("Expiration")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(4000);
+                b.Property<string>("Value")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(4000);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                b.HasIndex("ClientId");
 
-                    b.ToTable("ClientSecrets");
-                });
+                b.ToTable("ClientSecrets");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityClaim", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("IdentityResourceId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("IdentityResourceId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Type")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("IdentityResourceId");
+                b.HasIndex("IdentityResourceId");
 
-                    b.ToTable("IdentityClaims");
-                });
+                b.ToTable("IdentityClaims");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityResource", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityResource", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("DATETIME");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(1000);
+                b.Property<string>("Description")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(1000);
 
-                    b.Property<string>("DisplayName")
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("DisplayName")
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<bool>("Emphasize")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("Emphasize")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("Enabled")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(200);
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(200);
 
-                    b.Property<bool>("NonEditable")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("NonEditable")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Required")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("Required")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<bool>("ShowInDiscoveryDocument")
-                        .HasColumnType("INTEGER");
+                b.Property<bool>("ShowInDiscoveryDocument")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("DATETIME");
+                b.Property<DateTime?>("Updated")
+                    .HasColumnType("DATETIME");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                b.HasIndex("Name")
+                    .IsUnique();
 
-                    b.ToTable("IdentityResources");
-                });
+                b.ToTable("IdentityResources");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityResourceProperty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityResourceProperty", b => {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("INTEGER");
 
-                    b.Property<int>("IdentityResourceId")
-                        .HasColumnType("INTEGER");
+                b.Property<int>("IdentityResourceId")
+                    .HasColumnType("INTEGER");
 
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(250);
+                b.Property<string>("Key")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(250);
 
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR")
-                        .HasMaxLength(2000);
+                b.Property<string>("Value")
+                    .IsRequired()
+                    .HasColumnType("NVARCHAR")
+                    .HasMaxLength(2000);
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("IdentityResourceId");
+                b.HasIndex("IdentityResourceId");
 
-                    b.ToTable("IdentityProperties");
-                });
+                b.ToTable("IdentityProperties");
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceClaim", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
-                        .WithMany("UserClaims")
-                        .HasForeignKey("ApiResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceClaim", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
+                    .WithMany("UserClaims")
+                    .HasForeignKey("ApiResourceId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceProperty", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
-                        .WithMany("Properties")
-                        .HasForeignKey("ApiResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceProperty", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
+                    .WithMany("Properties")
+                    .HasForeignKey("ApiResourceId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScope", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
-                        .WithMany("Scopes")
-                        .HasForeignKey("ApiResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScope", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
+                    .WithMany("Scopes")
+                    .HasForeignKey("ApiResourceId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScopeClaim", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.ApiScope", "ApiScope")
-                        .WithMany("UserClaims")
-                        .HasForeignKey("ApiScopeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScopeClaim", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.ApiScope", "ApiScope")
+                    .WithMany("UserClaims")
+                    .HasForeignKey("ApiScopeId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiSecret", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
-                        .WithMany("Secrets")
-                        .HasForeignKey("ApiResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiSecret", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.ApiResource", "ApiResource")
+                    .WithMany("Secrets")
+                    .HasForeignKey("ApiResourceId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientClaim", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("Claims")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientClaim", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("Claims")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientCorsOrigin", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("AllowedCorsOrigins")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientCorsOrigin", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("AllowedCorsOrigins")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientGrantType", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("AllowedGrantTypes")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientGrantType", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("AllowedGrantTypes")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientIdPRestriction", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("IdentityProviderRestrictions")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientIdPRestriction", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("IdentityProviderRestrictions")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientPostLogoutRedirectUri", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("PostLogoutRedirectUris")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientPostLogoutRedirectUri", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("PostLogoutRedirectUris")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientProperty", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("Properties")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientProperty", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("Properties")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientRedirectUri", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("RedirectUris")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientRedirectUri", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("RedirectUris")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientScope", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("AllowedScopes")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientScope", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("AllowedScopes")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientSecret", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
-                        .WithMany("ClientSecrets")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ClientSecret", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.Client", "Client")
+                    .WithMany("ClientSecrets")
+                    .HasForeignKey("ClientId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityClaim", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.IdentityResource", "IdentityResource")
-                        .WithMany("UserClaims")
-                        .HasForeignKey("IdentityResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityClaim", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.IdentityResource", "IdentityResource")
+                    .WithMany("UserClaims")
+                    .HasForeignKey("IdentityResourceId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 
-            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityResourceProperty", b =>
-                {
-                    b.HasOne("IdentityServer4.EntityFramework.Entities.IdentityResource", "IdentityResource")
-                        .WithMany("Properties")
-                        .HasForeignKey("IdentityResourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.IdentityResourceProperty", b => {
+                b.HasOne("IdentityServer4.EntityFramework.Entities.IdentityResource", "IdentityResource")
+                    .WithMany("Properties")
+                    .HasForeignKey("IdentityResourceId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+            });
 #pragma warning restore 612, 618
         }
     }

@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Internal;
 
-namespace HundredProof.Federation.DataModel
-{
+namespace HundredProof.Federation.DataModel {
     public static class PersistanceMigrations {
-        private static string filename = "PersistanceMigrations.sql";
+        private static readonly string filename = "PersistanceMigrations.sql";
+
         public static string getSql() {
             var assembly = Assembly.GetExecutingAssembly();
-            string resourceName = assembly.GetManifestResourceNames()
+            var resourceName = assembly.GetManifestResourceNames()
                 .Single(str => str.EndsWith(filename));
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (var reader = new StreamReader(stream)) {
+                var result = reader.ReadToEnd();
                 return result;
             }
         }

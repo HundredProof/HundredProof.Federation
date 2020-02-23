@@ -1,12 +1,7 @@
-﻿
+﻿using System.Collections.Generic;
 
-
-using System.Collections.Generic;
-
-namespace HundredProof.Federation.Domain.Consent
-{
-    public class ConsentViewModel : ConsentInputModel
-    {
+namespace HundredProof.Federation.Domain.Consent {
+    public class ConsentViewModel : ConsentInputModel {
         public string ClientName { get; set; }
         public string ClientUrl { get; set; }
         public string ClientLogoUrl { get; set; }

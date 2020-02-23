@@ -1,5 +1,5 @@
 {
   "HttpsSettings": {
     "CertificateSubject": "endpoint.example-2.getthinktank.com"
-    }
+  }
 }

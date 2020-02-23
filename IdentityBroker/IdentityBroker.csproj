@@ -11,12 +11,12 @@
     <Features>IOperation</Features>
   </PropertyGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.0.1" />
 
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0" />
-    
+
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />

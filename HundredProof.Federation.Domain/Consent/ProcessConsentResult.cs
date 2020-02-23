@@ -1,10 +1,5 @@
-
-
-
-namespace HundredProof.Federation.Domain.Consent
-{
-    public class ProcessConsentResult
-    {
+namespace HundredProof.Federation.Domain.Consent {
+    public class ProcessConsentResult {
         public bool IsRedirect => RedirectUri != null;
         public string RedirectUri { get; set; }
         public string ClientId { get; set; }

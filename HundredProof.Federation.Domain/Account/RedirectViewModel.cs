@@ -1,11 +1,5 @@
-
-
-
-
-namespace HundredProof.Federation.Domain.Account
-{
-    public class RedirectViewModel
-    {
+namespace HundredProof.Federation.Domain.Account {
+    public class RedirectViewModel {
         public string RedirectUrl { get; set; }
     }
 }

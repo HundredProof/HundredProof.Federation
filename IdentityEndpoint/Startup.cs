@@ -1,5 +1,4 @@
 ﻿using HundredProof.Federation.DataModel.UserDatabase;
-using HundredProof.Federation.Domain.Account;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -9,29 +8,28 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.VisualBasic;
 
 namespace IdentityEndpoint {
     public class Startup {
-        public IWebHostEnvironment Environment { get; }
-        public IConfiguration Configuration { get; }
-
         public Startup(IWebHostEnvironment environment, IConfiguration configuration) {
             Environment = environment;
             Configuration = configuration;
         }
 
+        public IWebHostEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllersWithViews();
             services.AddCors(options => {
-                options.AddDefaultPolicy(new CorsPolicy() {
+                options.AddDefaultPolicy(new CorsPolicy {
                     Origins = {"*"},
                     Methods = {"*"}
                 });
             });
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options => 
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -47,8 +45,7 @@ namespace IdentityEndpoint {
                 .AddConfigurationStore(options =>
                     options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString))
                 // this adds the operational data from DB (codes, tokens, consents)
-                .AddOperationalStore(options =>
-                {
+                .AddOperationalStore(options => {
                     options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString);
                     options.EnableTokenCleanup = true;
                 })

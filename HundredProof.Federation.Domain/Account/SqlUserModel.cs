@@ -1,7 +1,5 @@
-﻿namespace HundredProof.Federation.Domain.Account
-{
-    public class SqlUserModel
-    {
+﻿namespace HundredProof.Federation.Domain.Account {
+    public class SqlUserModel {
         public string Username { get; set; }
         public string Email { get; set; }
         public string Id { get; set; }

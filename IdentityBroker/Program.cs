@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
-using System;
-using System.IO;
-using System.Linq;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace IdentityBroker {
     public class Program {
@@ -27,9 +27,7 @@ namespace IdentityBroker {
 
             try {
                 var seed = args.Contains("/seed");
-                if (seed) {
-                    args = args.Except(new[] {"/seed"}).ToArray();
-                }
+                if (seed) args = args.Except(new[] {"/seed"}).ToArray();
 
                 Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT",
                     args.Contains("/debug") ? "Debug" : "Production");
@@ -57,25 +55,25 @@ namespace IdentityBroker {
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.ConfigureKestrel(serverOptions => {
                         serverOptions.ConfigureEndpointDefaults(listenOptions => {
                             var config = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
-                                .AddJsonFile("https.json", optional: true)
+                                .AddJsonFile("https.json", true)
                                 .AddCommandLine(args)
                                 .Build().GetSection("HttpsSettings");
-                            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production") {
-                                listenOptions.UseHttps(System.Security.Cryptography.X509Certificates.StoreName.My,
+                            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                                listenOptions.UseHttps(StoreName.My,
                                     config.GetValue<string>("CertificateSubject"));
-                            }
                         });
                     });
                     webBuilder.UseUrls("https://broker.example-1.getthinktank.com:443/");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseSerilog();
                 });
+        }
     }
 }
