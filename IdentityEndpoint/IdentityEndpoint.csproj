@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HundredProof.Federation.DataModel\HundredProof.Federation.DataModel.csproj" />
+    <ProjectReference Include="..\HundredProof.Federation.DataModel\HundredProof.Federation.StorageModel.csproj" />
     <ProjectReference Include="..\HundredProof.Federation.Domain\HundredProof.Federation.Domain.csproj" />
   </ItemGroup>
 

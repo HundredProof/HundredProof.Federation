@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityEndpoint", "Identit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HundredProof.Federation.Domain", "HundredProof.Federation.Domain\HundredProof.Federation.Domain.csproj", "{DEE03E43-CCD3-49DD-B6D3-2E3C2417DCE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HundredProof.Federation.DataModel", "HundredProof.Federation.DataModel\HundredProof.Federation.DataModel.csproj", "{2AE26167-FD10-494F-B050-EA6B797B70DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HundredProof.Federation.StorageModel", "HundredProof.Federation.DataModel\HundredProof.Federation.StorageModel.csproj", "{2AE26167-FD10-494F-B050-EA6B797B70DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
