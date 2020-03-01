@@ -1,42 +1,35 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
+﻿using System.Collections.Generic;
 using IdentityServer4.Models;
-using System.Collections.Generic;
 
-namespace IdentityEndpoint
-{
-    public static class Config
-    {
+namespace IdentityEndpoint {
+    public static class Config {
         public static IEnumerable<IdentityResource> Ids =>
-            new IdentityResource[]
-            {
+            new IdentityResource[] {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+                new IdentityResources.Profile()
             };
 
 
         public static IEnumerable<ApiResource> Apis =>
-            new ApiResource[]
-            {
+            new[] {
                 new ApiResource("api1", "My API #1")
             };
 
 
         public static IEnumerable<Client> Clients =>
-            new[]
-            {
+            new[] {
                 // client credentials flow client
-                new Client
-                {
+                new Client {
                     ClientId = "IDBROKER",
                     ClientSecrets = {new Secret("IDBROKER".Sha256())},
                     ClientName = "",
-                    ClientUri = "https://localhost:5001",
+                    ClientUri = "https://broker.example-1.getthinktank.com",
                     ClientClaimsPrefix = "idbroker_",
                     Enabled = true,
-                    RedirectUris = {"https://localhost:5001", "https://localhost:5001/signin-oidc"},
+                    RedirectUris = {
+                        "https://broker.example-1.getthinktank.com",
+                        "https://broker.example-1.getthinktank.com/signin-oidc"
+                    },
                     AllowedScopes = {"openid", "profile", "sub"},
                     AllowPlainTextPkce = false,
                     AlwaysSendClientClaims = true,

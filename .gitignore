@@ -4,3 +4,6 @@ obj/
 .idea/
 */bin/
 */obj/
+/.vs
+.vs/*
+*/*.ide

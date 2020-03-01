@@ -1,9 +1,9 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityEndpoint.Data;
-using IdentityEndpoint.Models;
+﻿using System;
+using HundredProof.Federation.DataModel.UserDatabase;
+using HundredProof.Federation.Domain;
+using HundredProof.Federation.Domain.Account;
+using HundredProof.Federation.Domain.LegacySqlLoginAdapter;
+using IdentityEndpoint.DataModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -14,77 +14,63 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace IdentityEndpoint
-{
-    public class Startup
-    {
-        public IWebHostEnvironment Environment { get; }
-        public IConfiguration Configuration { get; }
-
-        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
-        {
+namespace IdentityEndpoint {
+    public class Startup {
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration) {
             Environment = environment;
             Configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public IWebHostEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services) {
             services.AddControllersWithViews();
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(new CorsPolicy()
-                {
-                    Origins = { "*" },
-                    Methods = { "*" }
+            services.AddCors(options => {
+                options.AddDefaultPolicy(new CorsPolicy {
+                    Origins = {"*"},
+                    Methods = {"*"}
                 });
             });
-            // configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
-            services.Configure<IISOptions>(iis =>
-            {
-                iis.AuthenticationDisplayName = "Windows";
-                iis.AutomaticAuthentication = false;
-            });
 
-            // configures IIS in-proc settings
-            services.Configure<IISServerOptions>(iis =>
-            {
-                iis.AuthenticationDisplayName = "Windows";
-                iis.AutomaticAuthentication = false;
-            });
-
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             
-            var builder = services.AddIdentityServer(options =>
-                {
+            // this is where you can override the legacy sql adapter. Make sure to replace the SqlUserModel
+            // and SqlLoginHandler with your own implementations.  You also need to modify the constructor/ private
+            // properties of the Account Controller to reflect the new implementations.
+            services.AddTransient<ILegacySqlLoginAdapter<SqlUserModel>>(provider => new SqlLoginHandler(Configuration));
+
+            var builder = services.AddIdentityServer(options => {
                     options.Events.RaiseErrorEvents = true;
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                 })
-                .AddInMemoryIdentityResources(Config.Ids)
-                .AddInMemoryApiResources(Config.Apis)
-                
-                .AddInMemoryClients(Config.Clients)
+                .AddConfigurationStore(options =>
+                    options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString))
+                // this adds the operational data from DB (codes, tokens, consents)
+                .AddOperationalStore(options => {
+                    options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString);
+                    options.EnableTokenCleanup = true;
+                })
                 .AddAspNetIdentity<ApplicationUser>();
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
-            services.AddHttpsRedirection(options =>
-            {
+            services.AddHttpsRedirection(options => {
                 options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
                 options.HttpsPort = 443;
             });
         }
 
-        public void Configure(IApplicationBuilder app)
-        {
-            if (Environment.IsDevelopment())
-            {
+        public void Configure(IApplicationBuilder app) {
+            if (Environment.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -94,10 +80,7 @@ namespace IdentityEndpoint
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
         }
     }
 }

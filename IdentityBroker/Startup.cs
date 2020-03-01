@@ -1,9 +1,5 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityBroker.Data;
-using IdentityBroker.Models;
+﻿using HundredProof.Federation.DataModel.UserDatabase;
+using IdentityServer4;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -16,89 +12,67 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
-namespace IdentityBroker
-{
-    public class Startup
-    {
-        public IWebHostEnvironment Environment { get; }
-        public IConfiguration Configuration { get; }
-
-        public Startup(IWebHostEnvironment environment, IConfiguration configuration)
-        {
+namespace IdentityBroker {
+    public class Startup {
+        public Startup(IWebHostEnvironment environment, IConfiguration configuration) {
             Environment = environment;
             Configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(new CorsPolicy()
-                {
-                    Origins = { "*" },
-                    Methods = { "*" }
+        public IWebHostEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services) {
+            services.AddCors(options => {
+                options.AddDefaultPolicy(new CorsPolicy {
+                    Origins = {"*"},
+                    Methods = {"*"}
                 });
             });
             services.AddControllersWithViews();
-
-            // configures IIS out-of-proc settings (see https://github.com/aspnet/AspNetCore/issues/14882)
-            services.Configure<IISOptions>(iis =>
-            {
-                iis.AuthenticationDisplayName = "Windows";
-                iis.AutomaticAuthentication = false;
-            });
-
-            // configures IIS in-proc settings
-            services.Configure<IISServerOptions>(iis =>
-            {
-                iis.AuthenticationDisplayName = "Windows";
-                iis.AutomaticAuthentication = false;
-            });
-
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            
-            var builder = services.AddIdentityServer(options =>
-                {
+
+            var builder = services.AddIdentityServer(options => {
                     options.Events.RaiseErrorEvents = true;
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                 })
-                .AddInMemoryIdentityResources(Config.Ids)
-                .AddInMemoryApiResources(Config.Apis)
-                .AddInMemoryClients(Config.Clients)
+                .AddConfigurationStore(options =>
+                    options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString))
+                // this adds the operational data from DB (codes, tokens, consents)
+                .AddOperationalStore(options => {
+                    options.ConfigureDbContext = builder => builder.UseSqlServer(connectionString);
+                    options.EnableTokenCleanup = true;
+                })
                 .AddAspNetIdentity<ApplicationUser>();
 
-            // not recommended for production - you need to store your key material somewhere secure
-            builder.AddDeveloperSigningCredential();
-
             services.AddAuthentication()
-                .AddOpenIdConnect(options =>
-                {
-                    options.Authority = "https://localhost:7001";
-                    options.ClientId = "IDBROKER";
-                    options.ClientSecret = "IDBROKER";
-                    options.AuthenticationMethod = OpenIdConnectRedirectBehavior.RedirectGet;
-                    options.UsePkce = true;
-                    options.ResponseType = OpenIdConnectResponseType.Code;
-                    options.GetClaimsFromUserInfoEndpoint = true;
-                });
-            services.AddHttpsRedirection(options =>
-            {
+                .AddOpenIdConnect(IdentityServerConstants.LocalApi.AuthenticationScheme,
+                    "Legacy Application", options => {
+                        options.ForwardSignOut = IdentityServerConstants.SignoutScheme;
+                        options.Authority = "https://endpoint.example-2.getthinktank.com";
+                        options.ClientId = "IDBROKER";
+                        options.ClientSecret = "IDBROKER";
+                        options.AuthenticationMethod = OpenIdConnectRedirectBehavior.RedirectGet;
+                        options.UsePkce = true;
+                        options.ResponseType = OpenIdConnectResponseType.Code;
+                        options.GetClaimsFromUserInfoEndpoint = true;
+                    });
+            services.AddHttpsRedirection(options => {
                 options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
                 options.HttpsPort = 443;
             });
         }
 
-        public void Configure(IApplicationBuilder app)
-        {
-            if (Environment.IsDevelopment())
-            {
+        public void Configure(IApplicationBuilder app) {
+            if (Environment.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -109,9 +83,7 @@ namespace IdentityBroker
             app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapDefaultControllerRoute();
-            });
+                endpoints.MapDefaultControllerRoute());
         }
     }
 }
