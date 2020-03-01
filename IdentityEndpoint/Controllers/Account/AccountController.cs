@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using HundredProof.Federation.DataModel.UserDatabase;
 using HundredProof.Federation.Domain;
 using HundredProof.Federation.Domain.Account;
+using HundredProof.Federation.Domain.LegacySqlLoginAdapter;
 using IdentityEndpoint.DataModels;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Authentication;
@@ -30,6 +29,7 @@ namespace IdentityEndpoint.Controllers.Account {
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILegacySqlLoginAdapter<SqlUserModel> _legacySqlLoginAdapter;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -38,7 +38,8 @@ namespace IdentityEndpoint.Controllers.Account {
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            IConfiguration configuration) {
+            IConfiguration configuration,
+            ILegacySqlLoginAdapter<SqlUserModel> legacySqlLoginAdapter) {
             _userManager = userManager;
             _signInManager = signInManager;
             _interaction = interaction;
@@ -46,6 +47,7 @@ namespace IdentityEndpoint.Controllers.Account {
             _schemeProvider = schemeProvider;
             _events = events;
             _configuration = configuration;
+            _legacySqlLoginAdapter = legacySqlLoginAdapter;
         }
 
         /// <summary>
@@ -72,10 +74,10 @@ namespace IdentityEndpoint.Controllers.Account {
             var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
             if (ModelState.IsValid) {
                 SqlUserModel sqlUser;
+                _legacySqlLoginAdapter.AddCredentials(model.Username, model.Password);
                 if (await _userManager.FindByNameAsync(model.Username) == null) {
-                    var createUserHandler = new SqlLoginHandler(model.Username, model.Password, _configuration);
-                    if (createUserHandler.CheckUser()) {
-                        sqlUser = createUserHandler.LoginWithUser();
+                    if (_legacySqlLoginAdapter.CheckUser()) {
+                        sqlUser = _legacySqlLoginAdapter.LoginWithUser();
                         if (sqlUser != null) {
                             var appUser = new ApplicationUser {
                                 Email = sqlUser.Email,
@@ -86,15 +88,10 @@ namespace IdentityEndpoint.Controllers.Account {
                             };
                             var user = await _userManager.CreateAsync(appUser);
                             await _userManager.AddLoginAsync(appUser,
-                                new UserLoginInfo("sql", "sql", "legacySqlProvider"));
+                                new UserLoginInfo("legacySql", "legacySql", "legacySqlProvider"));
 
-                            await _signInManager.SignInAsync(appUser, new AuthenticationProperties(), "sql");
-                            await _userManager.AddClaimsAsync(appUser, new[] {
-                                new Claim(JwtClaimTypes.ClientId, context?.ClientId),
-                                new Claim(JwtClaimTypes.Id, appUser.Id),
-                                new Claim(JwtClaimTypes.Email, appUser.Email)
-                                //TODO: pass in as array (look for Id, clientId and Email and throw)
-                            });
+                            await _signInManager.SignInAsync(appUser, new AuthenticationProperties(), "legacySql");
+                            await _userManager.AddClaimsAsync(appUser, sqlUser.Claims);
                             await _events.RaiseAsync(new UserLoginSuccessEvent(appUser.UserName, appUser.Id,
                                 appUser.UserName, clientId: context?.ClientId));
                             if (context != null) {
@@ -117,12 +114,10 @@ namespace IdentityEndpoint.Controllers.Account {
                     }
                 }
 
-
-                var loginHandler = new SqlLoginHandler(model.Username, model.Password, _configuration);
-                var sqlLogin = loginHandler.LoginWithUser();
+                var sqlLogin = _legacySqlLoginAdapter.LoginWithUser();
                 if (sqlLogin != null) {
                     var user = await _userManager.FindByNameAsync(model.Username);
-                    await _signInManager.SignInAsync(user, null, "sql");
+                    await _signInManager.SignInAsync(user, null, "legacySql");
                     await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id, user.UserName,
                         clientId: context?.ClientId));
 

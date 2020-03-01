@@ -1,4 +1,9 @@
-﻿using HundredProof.Federation.DataModel.UserDatabase;
+﻿using System;
+using HundredProof.Federation.DataModel.UserDatabase;
+using HundredProof.Federation.Domain;
+using HundredProof.Federation.Domain.Account;
+using HundredProof.Federation.Domain.LegacySqlLoginAdapter;
+using IdentityEndpoint.DataModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +40,11 @@ namespace IdentityEndpoint {
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            
+            // this is where you can override the legacy sql adapter. Make sure to replace the SqlUserModel
+            // and SqlLoginHandler with your own implementations.  You also need to modify the constructor/ private
+            // properties of the Account Controller to reflect the new implementations.
+            services.AddTransient<ILegacySqlLoginAdapter<SqlUserModel>>(provider => new SqlLoginHandler(Configuration));
 
             var builder = services.AddIdentityServer(options => {
                     options.Events.RaiseErrorEvents = true;
